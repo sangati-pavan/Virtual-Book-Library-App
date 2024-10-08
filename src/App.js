@@ -1,22 +1,21 @@
-// src/App.js
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import HomePage from './components/HomePage'
-import BookDetailsPage from './components/BookDetailsPage'
-import MyLibraryPage from './components/MyLibraryPage'
-import {LibraryProvider} from './context/LibraryContext'
+import React, { useState } from 'react';
+import './App.css';
+import MainScreen from './components/MainScreen';
+import MobileScreen from './components/MobileScreen';
 
 function App() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Toggle between main screen (computer) and mobile view
   return (
-    <LibraryProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/book/:id" element={<BookDetailsPage />} />
-          <Route path="/my-library" element={<MyLibraryPage />} />
-        </Routes>
-      </Router>
-    </LibraryProvider>
-  )
+    <div className="App">
+      <h1>KBC-Style Quiz Game</h1>
+      <button onClick={() => setIsMobile(!isMobile)}>
+        {isMobile ? 'Switch to Main Screen' : 'Switch to Mobile Screen'}
+      </button>
+      {isMobile ? <MobileScreen /> : <MainScreen />}
+    </div>
+  );
 }
 
-export default App
+export default App;
